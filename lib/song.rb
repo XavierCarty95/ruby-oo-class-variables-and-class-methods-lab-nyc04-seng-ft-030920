@@ -1,44 +1,57 @@
 class Song 
-    @@count = 0 
-    @@genres = []
-    @@artists= []
-    
-    attr_accessor :name , :artist , :genre
-     
-    def initialize(name , artist , genre)
-      
-     @name = name 
-     @artist = artist 
-     @genre = genre
-     @@count += 1
-     @@genres << genre
-     @@artists << artist
-    end 
+  
+   attr_accessor :name, :artist, :genre
+   @@count = 0
+   @@artists = []
+   @@genres = []
+  def initialize(name,artist,genre)
 
-  def self.count 
+    @name = name
+    @artist = artist
+    @genre = genre
+    @@count += 1
+    @@artists << self.artist
+    @@genres << self.genre
+  
+  end
+
+  def self.count
     @@count
   end 
 
-  def self.genres 
-    @@genres.uniq
-    end
-  
-
-  def self.genre_count
-
- end
-  def self.artists
-     
+  def self.artists 
     @@artists.uniq
+  end 
 
+  def self.genres
+     @@genres.uniq
+  end
+  
+  def self.artist_count
+    hash = Hash.new(0)
+   
+    @@artists.each do |values| 
+    
+      if hash.has_key?(values)
+          hash[values] = hash[values] + 1
+      else 
+        hash[values] = 1
+    end
+   end 
+   hash
   end 
 
   def self.genre_count
-    @@genres.reduce(Hash.new(0)) { |h, v| h.store(v, h[v] + 1); h }
-end
-
-def self.artist_count
-    @@artists.reduce(Hash.new(0)) { |h, v| h.store(v, h[v] + 1); h }
-end
-  
+    hash = Hash.new(0)
+   
+    @@genres.each do |values| 
+    
+      if hash.has_key?(values)
+          hash[values] = hash[values] + 1
+      else 
+        hash[values] = 1
+    end
+   end 
+   hash
+  end 
 end 
